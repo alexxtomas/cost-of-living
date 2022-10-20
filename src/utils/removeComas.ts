@@ -1,0 +1,1 @@
+export const removeComas = (str: string): string => str.replace(/,/g, '')

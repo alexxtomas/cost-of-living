@@ -1,0 +1,8 @@
+@font-face {
+    font-family: 'mononaki NF';
+    src: url('../fonts/mononaki.ttf');
+}
+
+* {
+    font-family: 'mononaki NF', 'monospace' !important;
+}
