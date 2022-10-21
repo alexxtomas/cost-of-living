@@ -12,14 +12,14 @@ const CityPrices = async ($livingIn: Element, $input: HTMLInputElement, $prices:
     const foundCity = cities.find(({ city_name }) => city_name === $input.value)
 
     if (!foundCity) {
-        $livingIn.innerHTML = '...'
+        $livingIn.innerHTML = ''
         $input.value = ''
         return ErrorHandler({ type: "default", tag: "h3", element: $prices, text: 'Sorry, the city you are looking for has not been found' })
     }
 
     const { city_name, country_name } = foundCity
 
-    $livingIn.innerHTML = `${city_name.toUpperCase()}`
+    $livingIn.innerHTML = `<strong><mark>${city_name.toUpperCase()}</mark></strong>`
     const prices = await getPrices(city_name, country_name)
 
     if (!prices) return ErrorHandler({ type: 'default', tag: "h3", element: $prices, text: `Error to get the ${city_name} prices, please try again later` })
@@ -27,30 +27,32 @@ const CityPrices = async ($livingIn: Element, $input: HTMLInputElement, $prices:
     const sortedByCategory = sortByCategory(prices)
     const categories = Object.keys(sortedByCategory)
 
-    const containers = categories.map(category => `
-    <div class="container" id="${category.replaceAll(' ', '-')}">
-        <h3>${category}</h3>
+    const emojis = ['<span class="square-meter">㎡</span>', '🏫', '👖', '🏪', '🏢', '🍽️', '💸', '🏋️', '🚕', '📶']
+    let emojisIndex = 0
+    const containers = categories.map(category => {
+        let categoryTitle = `${category} ${emojis[emojisIndex]}`
+        emojisIndex += 1
+        return `
+    <div class="container prices-card" id="${category.replaceAll(' ', '-')}">
+        <h3>${categoryTitle}</h3>
         <div class="container prices">
-            <ul class="list-of-prices">
-
-            </ul>
+            
         </div>
     </div>
     `
-    )
+    })
 
     containers.map(container => $prices.innerHTML += container)
 
     for (let i in categories) {
         sortedByCategory[categories[i]].map(price => {
-            const container = $(`#${price.category_name.replaceAll(' ', '-')} > div > ul`)
+            const container = $(`#${price.category_name.replaceAll(' ', '-')} > .container `)
             if (container !== null) {
-
                 let value = ''
 
-                !price.usd?.avg ? value = `${price.avg}` : value = `${price.usd.avg}`
+                !price.usd?.avg ? value = `${price.avg}%` : value = `$${price.usd.avg}`
                 container.innerHTML += `
-                    <li>${price.item_name.toUpperCase()}: ${value}</li>
+                    <p>${price.item_name}: <span class="value">${value}</span></p>
                 `
             }
         })

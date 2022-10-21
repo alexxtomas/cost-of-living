@@ -11,11 +11,16 @@ const Home = async (): Promise<Error | void | string> => {
 
     $app.innerHTML += `
         <div class="container">
-            <h1>COST OF LIVING IN <span class="living-in"> ...</span></h1>
+            <hgroup>
+                <h1>COST OF LIVING 💰</h1>
+                <h2 class="living-in"></h2>
+            </hgroup>
+            
             <form id="individual-city">
-                <label>Search a city 
+                <label>Enter a City
                     <input type="text" class="search-engine" placeholder="New York" autocomplete="off">
                 </label>
+                <button id="individual-city-button" aria-busy="false" class="contrast"> SEARCH 🔍</button>
             </form>
 
             <div id="prices" class="container"></div>
@@ -27,12 +32,28 @@ const Home = async (): Promise<Error | void | string> => {
         const { id } = evt.target as HTMLFormElement
         if (id === formID) {
             const $input = $('input') as HTMLInputElement | null
-            const $prices = $('#prices')
+            const $button = $('button')
             const $livingIn = $('.living-in')
-            if (!$prices || !$input || !$input.value || !$livingIn) return ErrorHandler({ type: 'nullDOMelement' })
-            cleanPage($prices)
-            await CityPrices($livingIn, $input, $prices)
-            $input.value = ''
+            const $prices = $('#prices')
+
+            if (!$button || !$input || !$livingIn || !$prices) return ErrorHandler({ type: 'nullDOMelement' })
+            if ($input.value === '') {
+                $livingIn.innerHTML = ''
+                return ErrorHandler({ type: "default", tag: "h3", element: $prices, text: 'Please enter a valid city' })
+            }
+
+            $button.textContent = ''
+            $button.ariaBusy = 'true'
+
+            setTimeout(async () => {
+                $button.ariaBusy = 'false'
+                $button.textContent = 'SEARCH 🔍'
+                cleanPage($prices)
+                await CityPrices($livingIn, $input, $prices)
+                $input.value = ''
+            }, 2000)
+
+
         }
     })
 }

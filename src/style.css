@@ -1,19 +1,95 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Roboto:wght@700&display=swap');
 
 @font-face {
     font-family: 'mononaki NF';
     src: url('../fonts/mononaki.ttf');
 }
 
+html {
+    overflow-x: hidden;
+    height: 100vh;
+}
+
+
+
 * {
-    font-family: 'mononaki NF', 'monospace' !important;
-}
-
-li {
-
-    list-style: none !important;
-}
-
-h1 {
     font-family: 'Roboto', sans-serif !important;
+    font-weight: 700 !important;
+}
+
+html,
+#app,
+body {
+    background-image: linear-gradient(120deg, #d4fc79 0%, #96e6a1 100%);
+
+
+}
+
+
+.prices-card {
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    margin-bottom: 40px;
+    /* border: 1px solid #fff; */
+    padding-left: 10px;
+    justify-content: center !important;
+    align-items: center;
+
+}
+
+.prices-card h3,
+.prices-card p {
+    color: #000;
+}
+
+.prices-card h3 {
+    text-align: center;
+    text-transform: uppercase;
+    font-size: 38px;
+    font-family: 'Bebas Neue', cursive !important;
+
+}
+
+.prices-card p {
+
+    font-size: 25px;
+
+}
+
+
+.value {
+    color: #46814a;
+    font-size: 24px;
+}
+
+#individual-city-button {
+    font-size: 20px;
+
+}
+
+hgroup {
+    text-align: center;
+}
+
+hgroup h1 {
+    letter-spacing: 8px;
+    font-size: 50px;
+    color: #000;
+    font-family: 'Bebas Neue', cursive !important;
+
+}
+
+label {
+    color: #000;
+}
+
+
+.error-h3 {
+    font-size: 30px;
+    color: #222;
+    font-weight: 700;
+    text-align: center;
+    text-transform: uppercase;
 }

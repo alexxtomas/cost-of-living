@@ -10,16 +10,3 @@ export const sortByCategory = (prices: Price[]) => {
 
 }
 
-/*sortedByCategori =   [
-    {categoty_name: {
-        elements: [
-            {
-                item_name: string
-                avg: number
-            }
-        ],
-        emote: string
-    }
-
-]
-*/ 
