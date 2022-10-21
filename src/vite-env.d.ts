@@ -18,7 +18,11 @@ interface Price {
     min: number,
     avg: number,
     max: number,
-    usd: Record<string, string>,
+    usd?: {
+        min: string,
+        avg: string,
+        max: string
+    },
     measure: string,
     currency_code: string
 }
@@ -38,3 +42,25 @@ interface Prices extends City {
     error: null | unknown
 
 }
+
+
+type HtmlTags = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'span' | 'p'
+
+
+interface NullDOMElement {
+    type: 'nullDOMelement'
+}
+interface Throw {
+    type: 'throw'
+    text: string
+}
+interface Default extends Throw {
+    type: 'default'
+    tag: HtmlTags
+    element: Element
+}
+interface Catch {
+    type: 'catch'
+    catchError: unknown
+}
+type Errors = Catch | Default | Throw | NullDOMElement

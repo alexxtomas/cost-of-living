@@ -1,21 +1,28 @@
+import ErrorHandler from "../components/ErrorHandler";
 import localStorage from "../utils/localStorage";
 
 export const getCities = (): void => {
     const cities = window.localStorage.getItem('cities')
 
     if (!cities) {
-        const options = {
-            method: 'GET',
-            headers: {
-                'X-RapidAPI-Key': 'dac446efd2msha9d86297bd0bc76p16446djsnc3d0a0b259c7',
-                'X-RapidAPI-Host': 'cost-of-living-and-prices.p.rapidapi.com'
-            }
-        };
 
-        fetch('https://cost-of-living-and-prices.p.rapidapi.com/cities', options)
-            .then(response => response.json())
-            .then((response: Cities) => window.localStorage.setItem('cities', JSON.stringify(response)))
-            .catch(err => console.error(err));
+        try {
+            const options = {
+                method: 'GET',
+                headers: {
+                    'X-RapidAPI-Key': 'dac446efd2msha9d86297bd0bc76p16446djsnc3d0a0b259c7',
+                    'X-RapidAPI-Host': 'cost-of-living-and-prices.p.rapidapi.com'
+                }
+            };
+
+            fetch('https://cost-of-living-and-prices.p.rapidapi.com/cities', options)
+                .then(response => response.json())
+                .then((response: Cities) => window.localStorage.setItem('cities', JSON.stringify(response)))
+                .catch(err => console.error(err));
+        } catch (err) {
+            ErrorHandler({ type: "catch", catchError: err })
+        }
+
     }
 }
 
