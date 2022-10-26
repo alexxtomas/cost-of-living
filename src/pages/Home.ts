@@ -51,7 +51,7 @@ const Home = async (): Promise<Error | void | string> => {
                 cleanPage($prices)
                 await CityPrices($livingIn, $input, $prices)
                 $input.value = ''
-            }, 2000)
+            }, 3000)
 
 
         }

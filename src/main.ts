@@ -7,6 +7,6 @@ getCities()
 
 
 
-await Home()
+Home()
 
 
